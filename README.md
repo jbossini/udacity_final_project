@@ -150,7 +150,7 @@ GET '/editorials/<id_editorial>'
 
 POST '/editorials'
 - Create a new Editorial in our database
-- Required Arguments: None
+- Request Arguments: None
 - Sample URL : curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $EDITOR_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/editorials -d '{"name": "Editorial name", "address": "location of the Editorial", "mail": "mail@editorial.com"}'
 - Returns :
     - The id of the new Editorial created
@@ -179,8 +179,8 @@ DELETE '/editorials/<id_editorial>'
 ```
 
 PATCH '/editorials/<id_editorial>'
-- Create a new Editorial in our database
-- Required Arguments: The id in the url of the Editorial to update
+- Update an Editorial in our database
+- Request Arguments: The id in the url of the Editorial to update
 - Sample URL : curl -X PATCH -H "Content-Type: application/json" -H "Authorization: Bearer $EDITOR_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/editorials/<id_editorial> -d '{"name": "Editorial name", "address": "location of the Editorial", "mail": "mail@editorial.com"}'
 - Returns :
     - An object with the updated editorial
@@ -193,6 +193,123 @@ PATCH '/editorials/<id_editorial>'
     "id": 3, 
     "mail": "mail@editorial.com", 
     "name": "Editorial name"
+  }, 
+  "success": true
+}
+```
+
+
+
+GET '/series'
+- Fetches a complete set of Comic Series from the database
+- Request Arguments: None needed but you can use the parameter page if you want to paginate the response
+- Sample URL : curl -H "Authorization: Bearer $FAN_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series
+- Returns: 
+  -An object JSON with a list of series in our database and also the flag success and the number of registries obtained 
+  -success Flag(True if everything went right)
+  -total_series : the number of series fetched with our request
+ 
+```json
+{
+  "series": [
+    {
+      "editorial": {
+        "address": "New York", 
+        "id": 1, 
+        "mail": "marvel-comics@marvel.comics", 
+        "name": "Marvel"
+      }, 
+      "id": 1, 
+      "name": "Avengers Dissasembled"
+    }, 
+    {
+      "editorial": {
+        "address": "New York", 
+        "id": 1, 
+        "mail": "marvel-comics@marvel.comics", 
+        "name": "Marvel"
+      }, 
+      "id": 2, 
+      "name": "Dinasty of M"
+    }
+  ], 
+  "success": true, 
+  "total_series": 2
+}
+```
+GET '/series/<id_series>'
+- Fetches a specific serie from our database if exists
+- Request Arguments: the id of the serie
+- Sample URL : curl -H "Authorization: Bearer $FAN_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series/<id_series>
+- Returns:
+  - An object JSON with the editorial in our database
+  - success Flag(True if everything went right)
+ 
+```json
+{
+  "serie": {
+    "editorial": {
+      "address": "New York", 
+      "id": 1, 
+      "mail": "marvel-comics@marvel.comics", 
+      "name": "Marvel"
+    }, 
+    "id": 1, 
+    "name": "Avengers Dissasembled"
+  }, 
+  "success": true
+}
+```
+
+POST '/series'
+- Create a new Series in our database
+- Request Arguments: None
+- Sample URL : curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series -d '{"name": "Series name", "editorial_id": <id_editorial>}'
+- Returns :
+    - The id of the new Series created
+    - success Flag(True if everything went right)
+- Sample:
+```json
+{
+  "id_serie": 4, 
+  "success": true
+}
+```
+
+DELETE '/series/<id_series>'
+- Delete a Series from the database (and the comics related to this Serie)
+- Request Arguments: The id in the url of the Serie to delete
+- Sample URL : curl -X DELETE -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series/<id_series>
+- Returns :
+    - id of the deleted Serie
+    - the flag success (True if everything went right)
+- Sample :
+```json
+{
+  "id_serie": 4, 
+  "success": true
+}
+```
+
+PATCH '/series/<id_series>'
+- Update a Serie in our database
+- Request Arguments: The id in the url of the Serie to update
+- Sample URL : curl -X PATCH -H "Content-Type: application/json" -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series/<id_series> -d '{"name": "Series name", "editorial_id":1}'
+- Returns :
+    - An object with the updated serie
+    - success Flag(True if everything went right)
+- Sample:
+```json
+{
+  "serie": {
+    "editorial": {
+      "address": "New York", 
+      "id": 1, 
+      "mail": "marvel-comics@marvel.comics", 
+      "name": "Marvel"
+    }, 
+    "id": 3, 
+    "name": "Series name"
   }, 
   "success": true
 }
