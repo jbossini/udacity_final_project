@@ -1,0 +1,14 @@
+TRUNCATE public."Editorial",public."Series",public."Comics";
+ALTER SEQUENCE public."Editorial_id_seq" RESTART WITH 1;
+ALTER SEQUENCE public."Series_id_seq" RESTART WITH 1;
+ALTER SEQUENCE public."Comics_id_seq" RESTART WITH 1;
+INSERT INTO public."Editorial" (name, address, mail) VALUES('Marvel','New York','marvel-comics@marvel.comics');
+INSERT INTO public."Editorial" (name, address, mail) VALUES('DC','New York','dc-comics@marvel.comics');
+INSERT INTO public."Editorial" (name, address, mail) VALUES('Vertigo','Spain','vertigo-comics@marvel.comics');
+INSERT INTO public."Series" (name, editorial_id) VALUES ('Avengers Dissasembled',1);
+INSERT INTO public."Series" (name, editorial_id) VALUES ('Dinasty of M',1);
+INSERT INTO public."Series" (name, editorial_id) VALUES ('Batman VS Superman',2);
+INSERT INTO public."Comics" (name, synopsis, characters, series_id) VALUES ('Avengers Dissasembled n1 USA','The beggining of the end for our dearest Avengers','Avengers',1);
+INSERT INTO public."Comics" (name, synopsis, characters, series_id) VALUES ('Avengers Dissasembled n2 USA','The beggining of the end for our dearest Avengers','Avengers',1);
+INSERT INTO public."Comics" (name, synopsis, characters, series_id) VALUES ('Batman Vs Superman 1','Epic battle between Batman and Superman','Batman, Superman',2);
+

@@ -1,0 +1,17 @@
+<html>
+    <header>
+        <title>Simple Login page</title>
+        <script>
+            window.onload=get_token_from_url;
+            function get_token_from_url(){
+                var token = window.location.hash;
+                document.getElementById('token').innerHTML="<pre>"+token.split('=')[1].split('&')[0]+"</pre>"
+            }
+        </script>
+    </header>
+<body>
+<h1> Welcome to the Comiquea Web page</h1>
+
+<h2>here you will find your json token to use in the API</h2>
+<div id="token"></div>
+</body>
