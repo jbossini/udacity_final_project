@@ -33,20 +33,20 @@ class Comic(db.Model):
     name = db.Column(db.String(), nullable=False)
     synopsis = db.Column(db.String())
     characters = db.Column(db.String(), nullable=False)
-    series = db.Column(db.Integer, db.ForeignKey("Series.id"), nullable=False)
+    series_id = db.Column(db.Integer, db.ForeignKey("Series.id"), nullable=False)
 
-    def __init__(self, name, synopsis, characters, series):
+    def __init__(self, name, synopsis, characters, series_id):
         self.name = name
         self.synopsis = synopsis
         self.characters = characters
-        self.series = series
+        self.series_id = series_id
 
     def format(self):
         return {
             'id': self.id,
             'name': self.name,
             'synopsis': self.synopsis,
-            'series': self.series}
+            'series': self.series.format()}
 
     def __repr__(self):
         return json.dumps(self.format())
@@ -67,21 +67,19 @@ class Series(db.Model):
     __tablename__ = 'Series'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    comics = db.relationship(
+    comic_list = db.relationship(
         'Comic', backref='series', lazy=True, cascade='delete')
-    editorial = db.Column(db.Integer,db.ForeignKey("Editorial.id"),nullable=False)
+    editorial_id = db.Column(db.Integer,db.ForeignKey("Editorial.id"),nullable=False)
 
-    def __init__(self, name, comics, editorial):
+    def __init__(self, name,editorial_id):
         self.name = name
-        self.comics = comics
-        self.editorial = editorial
+        self.editorial_id = editorial_id
 
     def format(self):
         return {
             'id': self.id,
             'name': self.name,
-            'comics': self.comics,
-            'editorial': self.editorial
+            'editorial': self.editorial.format()
         }
 
     def __repr__(self):
@@ -107,11 +105,10 @@ class Editorial(db.Model):
     series = db.relationship(
         'Series', backref='editorial', lazy=True, cascade='delete')
     
-    def __init__(self, name, series, mail):
+    def __init__(self, name, mail,address):
         self.name = name
-        self.address = address
-        self.series = series
         self.mail = mail
+        self.address = address
 
     def format(self):
         return {
@@ -119,7 +116,6 @@ class Editorial(db.Model):
             'name': self.name,
             'address': self.address,
             'mail': self.mail,
-            'series':self.series
         }
 
     def __repr__(self):
