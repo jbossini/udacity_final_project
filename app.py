@@ -238,7 +238,7 @@ def create_app(test_config=None):
         return jsonify({
             'success': True,
             'editorials': editorials,
-            'total_series': len(editorials)})
+            'total_editorials': len(editorials)})
 
     @app.route('/editorials/<int:id>')
     @requires_auth('get:info')
