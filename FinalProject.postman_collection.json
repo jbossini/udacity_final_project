@@ -1,0 +1,828 @@
+{
+	"info": {
+		"_postman_id": "547eeee6-d36d-4425-909a-988e8eed1e80",
+		"name": "FinalProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test case for role fan",
+			"item": [
+				{
+					"name": "get Editorials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0bb6551-acc3-4bfc-a2d2-514ecd43f226",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains editorials data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.editorials).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/editorials",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials"
+							]
+						},
+						"description": "Get the Editorials list"
+					},
+					"response": []
+				},
+				{
+					"name": "get Editorial detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5df4bffb-e092-4f07-80da-bd16a9070296",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains editorial data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('editorial')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/editorials/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Series",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0bb6551-acc3-4bfc-a2d2-514ecd43f226",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains series data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.series).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/series",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series"
+							]
+						},
+						"description": "Get the Editorials list"
+					},
+					"response": []
+				},
+				{
+					"name": "get Series detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5df4bffb-e092-4f07-80da-bd16a9070296",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains serie data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('serie')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/series/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch Series 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78a291a5-9abc-4f62-ba62-9ca810a885c7",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"error message contains data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message.description).to.eql(\"Permission not found.\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\"name\":\"vertigo-spain2\",\n\t\"mail\":\"vertigp-spain@vertigo.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/series/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series",
+								"1"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Series 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80638137-15e1-4fac-bcd9-c7c102164f0e",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"error message contains data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message.description).to.eql(\"Permission not found.\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/series/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im8wdDBVbWhzYUNhZ08xUlVYdG0tbiJ9.eyJpc3MiOiJodHRwczovL2pib3NzaW5pLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZTlkYzc3MDc2ZDYzZDBjMDk1YTA1YzEiLCJhdWQiOiJjb21pcXVlYS1hcGkiLCJpYXQiOjE1ODc0MDY4MjUsImV4cCI6MTU4NzQ5MzIyNSwiYXpwIjoidGxsMGFaRlBQRkZjRVlzM1Y4NTZHaDJpdTNVWGRxUTQiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDppbmZvIl19.NM8pRUfPmXwJi9LqBLey62nR5cFKguW-q5nuovACuzT97oq21ncLN3GavViRYdNEg9xRKlD_jfxipqRdIq8O81kNEp9Lo5NVLPNAXV7x3ukr2yycAxvrVrC3_dIZFmWUJmBZy9R2zvgQwe7glOSqSVZKO2QrRL537hYxPZUAhrLNovT_Un7gU_kJeWOr7_jhgn04oGx2LSxMyvz0LdPY3Mu3DjT4zVbEh6tvfe5_lbRAQncxgsYMQCC-_WBtOEWE9K-F7Ru6bHyvyhj7H7Nvnr4wfUb8R0nzsNTTVVi4JsSXAv0ZuNSgTn3hBkhysH9Q590skaUEk-YyLVgip9j48w",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5a834348-cbae-42ad-820a-2ddfcae73a04",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed5a6e17-88aa-4364-9f8b-603089a5f6cc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test for role writer",
+			"item": [
+				{
+					"name": "post Series",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d84e6267-b2e1-4a19-8003-773be183f8da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains series data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id_serie')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Batman Vs Superman\",\n \"editorial_id\":3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/series",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "post Series no header found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d84e6267-b2e1-4a19-8003-773be183f8da",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"value contains error message \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Vertigo2\",\n \"mail\":\"vertigo-comics@vertigo.com\",\n \"address\":\"Spain\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/series",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "patch Series",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78a291a5-9abc-4f62-ba62-9ca810a885c7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains serie updated\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Super Humor\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/series/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series",
+								"2"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Series",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80638137-15e1-4fac-bcd9-c7c102164f0e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"success is true after deleting\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/series/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"series",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch Editorials 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78a291a5-9abc-4f62-ba62-9ca810a885c7",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"error message contains data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message.description).to.eql(\"Permission not found.\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\"name\":\"vertigo-spain2\",\n\t\"mail\":\"vertigp-spain@vertigo.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/editorials/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials",
+								"1"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Editorial 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80638137-15e1-4fac-bcd9-c7c102164f0e",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"error message contains data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message.description).to.eql(\"Permission not found.\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/editorials/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im8wdDBVbWhzYUNhZ08xUlVYdG0tbiJ9.eyJpc3MiOiJodHRwczovL2pib3NzaW5pLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZTlkYmU0Njc2ZDYzZDBjMDk1OWY3ZDEiLCJhdWQiOiJjb21pcXVlYS1hcGkiLCJpYXQiOjE1ODc0MDIzNjEsImV4cCI6MTU4NzQ4ODc2MSwiYXpwIjoidGxsMGFaRlBQRkZjRVlzM1Y4NTZHaDJpdTNVWGRxUTQiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjb21pYyIsImRlbGV0ZTpzZXJpZXMiLCJnZXQ6aW5mbyIsInBhdGNoOmNvbWljIiwicGF0Y2g6c2VyaWVzIiwicG9zdDpjb21pYyIsInBvc3Q6c2VyaWVzIl19.YvsGW6BLR4rNaL5O0E2sViGeH0YOwR6l_nzf-zTBcr6YblH4EXqQrlFY6ZY3If_jBQIkL4LPnvdLD5yDi4VhB-N8bCwzA0GnohlbTzfrMd6gpn4kxwRgd7ygftbQWSSh48YvbBF1v0At3WniHp9ZYZ9irTazVsmnfq0Cxhj6j2V6CXNj0Shqm-tJzf6dlCaWJk-ihysh7IiMVi4IrIHzEWj6dr13agMhd4x-eg_P9N97ZdI3MLQj0UrDNQsSwBc9-jJQtJs4f4QthsiikVjgOmIddTfsD6YhtTFFkzcNANM_3RQurIdEsPyIGc8SzOuB7_NI0cVefcTwgFpHADfT6Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1cea6a9b-f24d-4534-9628-3cdf6551ab44",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb40dd5d-6f2e-4138-9903-e18f7bbc033f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test for role editor",
+			"item": [
+				{
+					"name": "post Editorial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d84e6267-b2e1-4a19-8003-773be183f8da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains editorials data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id_editorial')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Vertigo2\",\n \"mail\":\"vertigo-comics@vertigo.com\",\n \"address\":\"Spain\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/editorials",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "post Editorial no header found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d84e6267-b2e1-4a19-8003-773be183f8da",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"value contains error message \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Vertigo2\",\n \"mail\":\"vertigo-comics@vertigo.com\",\n \"address\":\"Spain\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/editorials",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "patch Editorials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78a291a5-9abc-4f62-ba62-9ca810a885c7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains editorial updated\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\"name\":\"vertigo-spain2\",\n\t\"mail\":\"vertigp-spain@vertigo.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/editorials/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials",
+								"2"
+							]
+						},
+						"description": "Create a new Editorial"
+					},
+					"response": []
+				},
+				{
+					"name": "delete Editorial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80638137-15e1-4fac-bcd9-c7c102164f0e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains editorial updated\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/editorials/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"editorials",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im8wdDBVbWhzYUNhZ08xUlVYdG0tbiJ9.eyJpc3MiOiJodHRwczovL2pib3NzaW5pLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExNTM2MzE0MDE2MTc0MjkyNzgyNSIsImF1ZCI6WyJjb21pcXVlYS1hcGkiLCJodHRwczovL2pib3NzaW5pLmV1LmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1ODc0NTU4MzQsImV4cCI6MTU4NzU0MjIzNCwiYXpwIjoidGxsMGFaRlBQRkZjRVlzM1Y4NTZHaDJpdTNVWGRxUTQiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmNvbWljIiwiZGVsZXRlOmVkaXRvcmlhbCIsImRlbGV0ZTpzZXJpZXMiLCJnZXQ6aW5mbyIsInBhdGNoOmNvbWljIiwicGF0Y2g6ZWRpdG9yaWFsIiwicGF0Y2g6c2VyaWVzIiwicG9zdDpjb21pYyIsInBvc3Q6ZWRpdG9yaWFsIiwicG9zdDpzZXJpZXMiXX0.B0vdn8oDOpquGVTV_AHpgDYqZhph8j7CPCJsl0QlFDjPNYotal3gUA_AaEExHIaVchILbjp0RBQDO-Q_XnMyjaclD-LXHeL8Yq8XRT7d8v0dKK79ARK1SYpd54QaCoRAUsEN7mchSbbIQqDoHxN7wVJzrY5bpz89ZXsBh2lDRwPS4tqYVc30fiw8sdJRMehJjg5q22H-TZC_CFwDBfIvrjoJuwutW7gK0oXcjqxPCOquHNgEo9DBgxURJ9lG9xc4M7DXJKpNJrrR6ewM0m3Drn_3KK4zqaeWD4xMAA0r4YFjxp6GF4L9HXBxPio_QlmxCMv_fkiDC9wrziCQ2Fzgkw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "68d19d7d-2e00-47dc-9439-f97f144dff44",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c756aba4-1fd3-4ead-a085-cb3dd3f640c4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2ffafb0a-5b8e-4487-9a29-54c1592563d5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ba26f5e8-3e46-45e1-ac98-2a7209a5cfe6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "fcbb42f0-6cc1-4074-a984-95755c86cb1a",
+			"key": "HOST",
+			"value": "192.168.1.111:8080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
