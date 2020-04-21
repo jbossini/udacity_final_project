@@ -46,6 +46,7 @@ class Comic(db.Model):
             'id': self.id,
             'name': self.name,
             'synopsis': self.synopsis,
+            'characters': self.characters,
             'series': self.series.format()}
 
     def __repr__(self):

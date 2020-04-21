@@ -85,6 +85,20 @@ To running the test correctly, first you should truncate the database and recrea
 ```bash
 psql comiquea<initdb.sh
 ```
+
+## Errors
+The errors that could arise in this API, would have all the same format : 
+```json
+{
+  "error": 403, 
+  "message": {
+    "code": "unauthorized", 
+    "description": "Permission not found."
+  }, 
+  "success": false
+}
+```
+
 ## API Reference
 
 ### Getting started
@@ -242,7 +256,7 @@ GET '/series/<id_series>'
 - Request Arguments: the id of the serie
 - Sample URL : curl -H "Authorization: Bearer $FAN_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/series/<id_series>
 - Returns:
-  - An object JSON with the editorial in our database
+  - An object JSON with the series in our database
   - success Flag(True if everything went right)
  
 ```json
@@ -314,7 +328,160 @@ PATCH '/series/<id_series>'
   "success": true
 }
 ```
+GET '/comics'
+- Fetches a complete set of Comics 
+- Request Arguments: None needed but you can use the parameter page if you want to paginate the response
+- Sample URL : curl -H "Authorization: Bearer $FAN_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/comics
+- Returns: 
+  -An object JSON with a list of comics in our database and also the flag success and the number of registries obtained 
+  -success Flag(True if everything went right)
+  -total_comics : the number of comics fetched with our request
+ 
+```json
+{
+  "comics": [
+    {
+      "characters": "Avengers", 
+      "id": 1, 
+      "name": "Avengers Dissasembled n1 USA", 
+      "series": {
+        "editorial": {
+          "address": "New York", 
+          "id": 1, 
+          "mail": "marvel-comics@marvel.comics", 
+          "name": "Marvel"
+        }, 
+        "id": 1, 
+        "name": "Avengers Dissasembled"
+      }, 
+      "synopsis": "The beggining of the end for our dearest Avengers"
+    }, 
+    {
+      "characters": "Avengers", 
+      "id": 2, 
+      "name": "Avengers Dissasembled n2 USA", 
+      "series": {
+        "editorial": {
+          "address": "New York", 
+          "id": 1, 
+          "mail": "marvel-comics@marvel.comics", 
+          "name": "Marvel"
+        }, 
+        "id": 1, 
+        "name": "Avengers Dissasembled"
+      }, 
+      "synopsis": "The beggining of the end for our dearest Avengers"
+    }, 
+    {
+      "characters": "Batman, Superman", 
+      "id": 3, 
+      "name": "Batman Vs Superman 1", 
+      "series": {
+        "editorial": {
+          "address": "New York", 
+          "id": 1, 
+          "mail": "marvel-comics@marvel.comics", 
+          "name": "Marvel"
+        }, 
+        "id": 2, 
+        "name": "Dinasty of M"
+      }, 
+      "synopsis": "Epic battle between Batman and Superman"
+    }
+  ], 
+  "success": true, 
+  "total_comics": 3
+}
+```
+GET '/comics/<id_comic>'
+- Fetches a specific comic from our database if exists
+- Request Arguments: the id of the comic
+- Sample URL : curl -H "Authorization: Bearer $FAN_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/comics/<id_comic>
+- Returns:
+  - An object JSON with the comic in our database
+  - success Flag(True if everything went right)
+ 
+```json
+{
+  "comic": {
+    "characters": "Avengers", 
+    "id": 1, 
+    "name": "Avengers Dissasembled n1 USA", 
+    "series": {
+      "editorial": {
+        "address": "New York", 
+        "id": 1, 
+        "mail": "marvel-comics@marvel.comics", 
+        "name": "Marvel"
+      }, 
+      "id": 1, 
+      "name": "Avengers Dissasembled"
+    }, 
+    "synopsis": "The beggining of the end for our dearest Avengers"
+  }, 
+  "success": true
+}
+```
 
+POST '/comics'
+- Create a new Comic in our database
+- Request Arguments: None
+- Sample URL : curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/comics -d '{"name": "comic  name", "synopsis": "synopsis of the comic", "characters":"main characters of the comic", "series_id":<id_series>}'
+- Returns :
+    - The id of the new Comic created
+    - success Flag(True if everything went right)
+- Sample:
+```json
+{
+  "id_comic": 4, 
+  "success": true
+}
+```
+
+DELETE '/comics/<id_comic>'
+- Delete a Comic from the database 
+- Request Arguments: The id in the url of the Comic to delete
+- Sample URL : curl -X DELETE -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/comics/<id_comic>
+- Returns :
+    - id of the deleted Comic
+    - the flag success (True if everything went right)
+- Sample :
+```json
+{
+  "id_comic": 4, 
+  "success": true
+}
+```
+
+PATCH '/comics/<id_comic>'
+- Update a Comic in our database
+- Request Arguments: The id in the url of the Comic to update
+- Sample URL : curl -X PATCH -H "Content-Type: application/json" -H "Authorization: Bearer $WRITER_AUTHORIZATION_TOKEN" https://comiquea.herokuapp.com/comics/<id_comic> -d '{"name": "comic  name", "synopsis": "synopsis of the comic", "characters":"main characters of the comic", "series_id":<id_series>}'
+- Returns :
+    - An object with the updated comic
+    - success Flag(True if everything went right)
+- Sample:
+```json
+{
+  "comic": {
+    "characters": "main characters of the comic", 
+    "id": 3, 
+    "name": "comic  name", 
+    "series": {
+      "editorial": {
+        "address": "New York", 
+        "id": 1, 
+        "mail": "marvel-comics@marvel.comics", 
+        "name": "Marvel"
+      }, 
+      "id": 2, 
+      "name": "Dinasty of M"
+    }, 
+    "synopsis": "Epic battle between Batman and Superman"
+  }, 
+  "success": true
+}
+```
 
 ## Authors
 José Manuel Díaz Bossini
