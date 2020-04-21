@@ -33,7 +33,10 @@ class Comic(db.Model):
     name = db.Column(db.String(), nullable=False)
     synopsis = db.Column(db.String())
     characters = db.Column(db.String(), nullable=False)
-    series_id = db.Column(db.Integer, db.ForeignKey("Series.id"), nullable=False)
+    series_id = db.Column(
+        db.Integer, db.ForeignKey("Series.id"),
+        nullable=False
+    )
 
     def __init__(self, name, synopsis, characters, series_id):
         self.name = name
@@ -70,9 +73,10 @@ class Series(db.Model):
     name = db.Column(db.String(), nullable=False)
     comic_list = db.relationship(
         'Comic', backref='series', lazy=True, cascade='delete')
-    editorial_id = db.Column(db.Integer,db.ForeignKey("Editorial.id"),nullable=False)
+    editorial_id = db.Column(db.Integer, db.ForeignKey(
+        "Editorial.id"), nullable=False)
 
-    def __init__(self, name,editorial_id):
+    def __init__(self, name, editorial_id):
         self.name = name
         self.editorial_id = editorial_id
 
@@ -97,16 +101,17 @@ class Series(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+
 class Editorial(db.Model):
     __tablename__ = 'Editorial'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     address = db.Column(db.String())
-    mail=db.Column(db.String(),nullable=False)
+    mail = db.Column(db.String(), nullable=False)
     series = db.relationship(
         'Series', backref='editorial', lazy=True, cascade='delete')
-    
-    def __init__(self, name, mail,address):
+
+    def __init__(self, name, mail, address):
         self.name = name
         self.mail = mail
         self.address = address

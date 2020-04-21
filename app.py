@@ -59,14 +59,14 @@ def create_app(test_config=None):
     def get_comics(payload):
         comics = paginate_results([comic.format()
                                    for comic in Comic.query.all()], request)
-        if len(comics)==0:
+        if len(comics) == 0:
             abort(404)
 
         return jsonify({
             'success': True,
             'comics': comics,
             'total_comics': len(comics)
-            })
+        })
 
     @app.route('/comics/<int:id>')
     @requires_auth('get:info')
@@ -148,7 +148,7 @@ def create_app(test_config=None):
     def get_series(payload):
         series = paginate_results([serie.format()
                                    for serie in Series.query.all()], request)
-        if len(series)==0:
+        if len(series) == 0:
             abort(404)
         return jsonify({
             'success': True,
@@ -232,8 +232,8 @@ def create_app(test_config=None):
         editorials = paginate_results(
             [editorial.format() for editorial in Editorial.query.all()],
             request
-            )
-        if len(editorials)==0:
+        )
+        if len(editorials) == 0:
             abort(404)
         return jsonify({
             'success': True,
